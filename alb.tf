@@ -1,45 +1,45 @@
 resource "aws_security_group" "demo-alb" {
-    name = "${var.alb_name}-load-balancer"
-    description = "allow HTTPS to ${var.alb_name} Load Balancer (ALB)"
-    vpc_id = module.vpc.vpc_id
-    ingress {
-        from_port = "443"
-        to_port = "443"
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-    tags = {
-        Name = "${var.alb_name}"
-    }
+  name        = "${var.alb_name}-load-balancer"
+  description = "allow HTTPS to ${var.alb_name} Load Balancer (ALB)"
+  vpc_id      = module.vpc.vpc_id
+  ingress {
+    from_port   = "443"
+    to_port     = "443"
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "${var.alb_name}"
+  }
 }
 
 resource "aws_security_group_rule" "alb-ec2" {
-  type              = "egress"
-  from_port         = 8080
-  to_port           = 8080
-  protocol          = "tcp"
-  security_group_id = aws_security_group.demo-alb.id
+  type                     = "egress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.demo-alb.id
   source_security_group_id = aws_security_group.ec2-sg.id
 }
 
 
 # Create a single load balancer for all demo services
 resource "aws_alb" "demo" {
-  name            = "${var.alb_name}"
-  internal        = false
-  idle_timeout    = "300"
-  security_groups = [aws_security_group.demo-alb.id]
-  subnets = [module.vpc.public_subnet_ids[0],module.vpc.public_subnet_ids[1]]
+  name                       = "${var.alb_name}"
+  internal                   = false
+  idle_timeout               = "300"
+  security_groups            = [aws_security_group.demo-alb.id]
+  subnets                    = [module.vpc.public_subnet_ids[0], module.vpc.public_subnet_ids[1]]
   enable_deletion_protection = true
 
-# access_logs {
-#   bucket = "${aws_s3_bucket.alb_logs.bucket}"
-#   prefix = "test-alb"
-# }
+  # access_logs {
+  #   bucket = "${aws_s3_bucket.alb_logs.bucket}"
+  #   prefix = "test-alb"
+  # }
 
   tags = {
     Name = var.alb_name
-  } 
+  }
 }
 
 # Define a listener
@@ -70,7 +70,7 @@ resource "aws_alb_listener_rule" "app" {
   priority     = 99
 
   action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = "${aws_alb_target_group.app.arn}"
   }
 
