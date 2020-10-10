@@ -9,8 +9,9 @@ Resources:
     Properties:
       VPCZoneIdentifier: ["${join("\",\"", [module.vpc.private_subnet_ids[0],module.vpc.private_subnet_ids[1]])}"]
       AvailabilityZones: ["${join("\",\"", var.az)}"]
-      LaunchTemplate: "${aws_launch_template.LT.name}"
-      Version:  "${aws_launch_template.LT.latest_version}" 
+      LaunchTemplate:
+        LaunchTemplateName: "${aws_launch_template.LT.name}"
+        Version:  "${aws_launch_template.LT.latest_version}" 
       MinSize: "${var.asg_min_size}"
       MaxSize: "${var.asg_max_size}"
       DesiredCapacity: "${var.asg_desired_capacity}"
