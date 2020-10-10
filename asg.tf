@@ -37,15 +37,15 @@ resource "aws_launch_template" "LT" {
   }
 }
 
-resource "aws_autoscaling_group" "asg" {
-  #availability_zones = var.az
-  desired_capacity   = 2
-  max_size           = 4
-  min_size           = 2
-  vpc_zone_identifier = [module.vpc.private_subnet_ids[0],module.vpc.private_subnet_ids[1]]
+# resource "aws_autoscaling_group" "asg" {
+#   #availability_zones = var.az
+#   desired_capacity   = 2
+#   max_size           = 4
+#   min_size           = 2
+#   vpc_zone_identifier = [module.vpc.private_subnet_ids[0],module.vpc.private_subnet_ids[1]]
 
-  launch_template {
-    id      = aws_launch_template.LT.id
-    version = "$Latest"
-  }
-}
+#   launch_template {
+#     id      = aws_launch_template.LT.id
+#     version = "$Latest"
+#   }
+# }
