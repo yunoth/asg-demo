@@ -3,17 +3,28 @@ resource "aws_security_group" "ec2-sg" {
     name = "${var.alb_name}-instance"
     description = "allow HTTPS to ${var.alb_name} Load Balancer (ALB)"
     vpc_id = module.vpc.vpc_id
-    ingress {
-        from_port = "443"
-        to_port = "443"
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
     tags = {
         Name = "${var.alb_name}"
     }
 }
 
+resource "aws_security_group_rule" "ec2-alb-in" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  source_security_group_id = aws_security_group.demo-alb.id
+  security_group_id = aws_security_group.ec2-sg.id
+}
+
+resource "aws_security_group_rule" "ec2-rds-out" {
+  type              = "egress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  source_security_group_id = aws_security_group.rds-sg.id
+  security_group_id = aws_security_group.ec2-sg.id
+}
 
 resource "aws_launch_template" "LT" {
   name_prefix   = "appasg"

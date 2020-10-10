@@ -9,7 +9,7 @@ module "vpc" {
   source              = "github.com/yunoth/alb-demo.git//modules/vpc?ref=master"
   cidr_block          = "10.1.0.0/16"
   public_subnet_cidr  = ["10.1.100.0/24", "10.1.200.0/24"]
-  private_subnet_cidr = ["10.1.1.0/24", "10.1.2.0/24"]
+  private_subnet_cidr = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24", "10.1.4.0/24"]
   az                  = var.az
   subnet_tags = {
     Name = "subnet"

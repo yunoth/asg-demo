@@ -13,6 +13,16 @@ resource "aws_security_group" "demo-alb" {
     }
 }
 
+resource "aws_security_group_rule" "alb-ec2" {
+  type              = "egress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  security_group_id = aws_security_group.demo-alb.id
+  source_security_group_id = aws_security_group.ec2-sg.id
+}
+
+
 # Create a single load balancer for all demo services
 resource "aws_alb" "demo" {
   name            = "${var.alb_name}"
