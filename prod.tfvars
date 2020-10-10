@@ -4,3 +4,7 @@ alb_name = "app-alb"
 db-username   = "admin"
 db-password   = "global!23"
 cfn_stack_name = "asg-rolling"
+cfn_signal_count = 1
+asg_max_size = 4
+asg_min_size = 2
+asg_desired_capacity = 2

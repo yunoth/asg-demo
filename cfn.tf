@@ -9,7 +9,7 @@ Resources:
     Properties:
       VPCZoneIdentifier: ["${join("\",\"", [module.vpc.private_subnet_ids[0],module.vpc.private_subnet_ids[1]])}"]
       AvailabilityZones: ["${join("\",\"", var.az)}"]
-      LaunchConfigurationName: "${aws_launch_configuration.ecs.name}"
+      LaunchTemplate: "${aws_launch_template.LT.name}"
       MinSize: "${var.asg_min_size}"
       MaxSize: "${var.asg_max_size}"
       DesiredCapacity: "${var.asg_desired_capacity}"
