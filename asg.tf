@@ -29,7 +29,7 @@ resource "aws_security_group_rule" "ec2-rds-out" {
 resource "aws_launch_template" "LT" {
   name_prefix   = "appasg"
   image_id      = "ami-0083662ba17882949"
-  instance_type = "t2.micro"
+  instance_type = "t2.small"
   user_data = filebase64("${path.module}/userdata.sh")
   network_interfaces {
     security_groups = [aws_security_group.ec2-sg.id]
