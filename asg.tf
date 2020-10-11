@@ -43,6 +43,7 @@ data "template_file" "user_data" {
     cfn_stack_name = var.cfn_stack_name
     db_username = var.db-username
     db_password = var.db-password
+    db_host = aws_db_instance.rds.endpoint
   }
 }
 

@@ -4,7 +4,8 @@
 sudo yum install -y docker
 sudo easy_install pip
 sudo pip install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
-#docker run --name some-wordpress -e WORDPRESS_DB_HOST=10.1.2.3:3306 -e WORDPRESS_DB_USER=${db_username} -e WORDPRESS_DB_PASSWORD=${db_password} -d wordpress
+sudo service docker start
+sudo docker run -p 8080:80 --name demo-wp -e WORDPRESS_DB_HOST=${db_host} -e WORDPRESS_DB_USER=${db_username} -e WORDPRESS_DB_PASSWORD='${db_password}' -d wordpress
 
 exit_code=$?
 

@@ -19,20 +19,20 @@ module "vpc" {
   }
 }
 
-# module "alb" {
-#   source          = "github.com/yunoth/alb-demo.git//modules/alb"
-#   name            = "demo-alb"
-#   internal        = false
-#   security_groups = aws_security_group.alb_sg.id
-#   subnets         = module.vpc.public_subnet_ids
-#   vpc_id          = module.vpc.vpc_id
-#   #instance_id     = [module.instance1.id, module.instance2.id]
-#   tags = {
-#     Name = "frontend-lb"
-#     env  = "demo"
+# resource "aws_route53_zone" "private" {
+#   name = "demo.net"
+#   vpc {
+#     vpc_id = module.vpc.vpc_id
 #   }
 # }
 
+# resource "aws_route53_record" "rds" {
+#   zone_id = aws_route53_zone.private.zone_id
+#   name    = "db.demo.net"
+#   type    = "cname"
+#   ttl     = "300"
+#   records = [aws_db_instance.rds.address]
+# }
 
 data "http" "myip" {
   url = "http://ifconfig.me"

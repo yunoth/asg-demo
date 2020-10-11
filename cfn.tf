@@ -16,6 +16,7 @@ Resources:
       MaxSize: "${var.asg_max_size}"
       DesiredCapacity: "${var.asg_desired_capacity}"
       HealthCheckType: EC2
+      TargetGroupARNs: ["${aws_alb_target_group.app.arn}"]
  
     CreationPolicy:
       AutoScalingCreationPolicy:
