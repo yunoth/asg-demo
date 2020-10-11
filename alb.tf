@@ -63,6 +63,11 @@ resource "aws_alb_target_group" "app" {
   port     = 8080
   protocol = "HTTP"
   vpc_id   = "${module.vpc.vpc_id}"
+  health_check {
+    path = "/"
+    matcher = "200-399"
+  }
+
 }
 
 resource "aws_alb_listener_rule" "app" {
