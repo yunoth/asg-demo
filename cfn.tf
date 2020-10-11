@@ -7,7 +7,7 @@ Resources:
   ASG:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
-      VPCZoneIdentifier: ["${join("\",\"", [module.vpc.public_subnet_ids[0], module.vpc.public_subnet_ids[1]])}"]
+      VPCZoneIdentifier: ["${join("\",\"", [module.vpc.private_subnet_ids[0], module.vpc.private_subnet_ids[1]])}"]
       AvailabilityZones: ["${join("\",\"", var.az)}"]
       LaunchTemplate:
         LaunchTemplateName: "${aws_launch_template.LT.name}"

@@ -41,6 +41,8 @@ data "template_file" "user_data" {
   template = "${file("${path.module}/userdata.tpl")}"
   vars = {
     cfn_stack_name = var.cfn_stack_name
+    db_username = var.db-username
+    db_password = var.db-password
   }
 }
 
