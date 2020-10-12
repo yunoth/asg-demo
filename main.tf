@@ -4,6 +4,9 @@ provider "aws" {
   region = var.region
 }
 
+terraform {
+  required_version = "~> 0.12.0"
+}
 
 module "vpc" {
   source              = "github.com/yunoth/alb-demo.git//modules/vpc?ref=master"
